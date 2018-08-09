@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>>App --- Snapshot +++capturing Snapshot of App 1`] = `
+<div
+  className="gallery-container"
+>
+  <h1>
+    Welcome to our movies gallery!
+  </h1>
+  <h1>
+    Loading.. please wait!
+  </h1>
+</div>
+`;

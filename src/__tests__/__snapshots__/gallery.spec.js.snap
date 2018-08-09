@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>>CardComponent E --- Snapshot +++capturing Snapshot of CardComponent 1`] = `
+<div
+  className="container-fluid gallery-container"
+>
+  <span>
+    Sort:
+  </span>
+  <span
+    className="sortLink "
+    onClick={[Function]}
+  >
+    Movie ID
+  </span>
+  <span
+    className="sortLink "
+    onClick={[Function]}
+  >
+    Language
+  </span>
+  <div
+    className="row"
+  />
+</div>
+`;
