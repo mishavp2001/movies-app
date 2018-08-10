@@ -25,7 +25,7 @@ In the production mode, we will have only 1 server running. All the client side 
 git clone https://github.com/mishavp2001/movies-app.git
 
 # Go inside the directory
-cd simple-react-full-stack
+cd movies-app
 
 # Install dependencies
 yarn (or npm install)

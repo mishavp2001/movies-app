@@ -5,17 +5,9 @@ import { shallow, mount } from 'enzyme';
 import * as enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import renderer from 'react-test-renderer'
-import {serverSocket} from '../__mocks__/socketIOClient';
 import App from '../client/App.js'
 
 enzyme.configure({ adapter: new Adapter() });
-
-function tick() {
-  return new Promise(resolve => {
-    setTimeout(resolve, 0);
-  })
-}
-
 
 // Snapshot for CardComponent React Component
 describe('>>>App --- Snapshot',()=>{
@@ -30,6 +22,10 @@ describe('App renders', ()=>{
     let wrapper;
     beforeEach(() => {
       wrapper = mount(<App />);
+    });
+
+    afterEach(() => {
+      wrapper = null;
     });
 
     it('renders app with no props without waiting for movies response', async () => {
@@ -74,6 +70,15 @@ describe('App interaction', ()=>{
     wrapper.find(".sortLink").at(1).simulate('click');
     expect(spy).toHaveBeenCalled();
   });
+  it('SortBy callback sets correct order', async () => {
+    wrapper.setState({movies: [{id: 1, thumbnailUrl: "u1"}, {id: 3, thumbnailUrl: "u3"}, {id: 2, thumbnailUrl: "u2"}]});
+    await expect(wrapper.find("GalleryImage")).toHaveLength(3);
+    wrapper.instance().sortBy("id", {preventDefault: () =>{}, stopPropagation: () =>{}});
+    //Re-render
+    wrapper.update();
+    await expect(wrapper.find("GalleryImage").at(1).prop('src')).toEqual("u2");
+  });
+
   it('Clicking on card opens/closes modal overlay', async () => {
     const spy = jest.spyOn(wrapper.instance(), 'sortBy');
     wrapper.setState({movies: [{id: 1}, {id: 3}, {id: 2}]});

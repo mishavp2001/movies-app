@@ -1,49 +1,24 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import "../css/gallery.css";
-
-// Component for gallery image
-class GalleryImage extends Component {
-  render() {
-    return(
-      <img className={this.props.className} src={this.props.src} alt={this.props.alt} />
-    )
-  }
-}
-
-// Component for gallery modal
-class GalleryModal extends Component {
-  render() {
-    if (this.props.isopen === false) {
-      return null;
-    }
-    const {movieId, fullSizeImageUrl, movieName, languageCode, imageType} = this.props.details;
-
-    return(
-      <div className='modal-overlay' onClick={this.props.onClick} name={this.props.name}>
-        <div className='modal-body'>
-          <a className='modal-close' href='#' onClick={this.props.onClick}><span className='fa fa-times'></span></a>
-          <img src={fullSizeImageUrl} />
-          <span className='tags'> {movieName} - {languageCode} - {imageType} - {movieId}</span>
-        </div>
-      </div>
-    )
-  }
-}
 
 // Component for gallery
 export default class Gallery extends Component{
+  static propTypes = {
+      showModal: PropTypes.bool,
+      sort: PropTypes.string,
+      url: PropTypes.string,
+      moviesResp: PropTypes.array,
+      sortBy: PropTypes.func
+  };
+
   constructor(props) {
     super(props);
-
     this.state = {
-      showModal: false,
-      url: '',
-      sort: 'movieId'
+        showModal: false,
+        url: '',
+        sort: 'movieId'
     }
-
-    this.openModal = this.openModal.bind(this);
-
-    this.closeModal = this.closeModal.bind(this);
   }
 
   render() {
@@ -74,7 +49,7 @@ export default class Gallery extends Component{
   }
 
   // Function for opening modal dialog
-  openModal(movie, e) {
+  openModal = (movie, e) => {
      this.setState({
        showModal: true,
        details: movie
@@ -82,10 +57,39 @@ export default class Gallery extends Component{
    };
 
   // Function for closing modal dialog
-  closeModal() {
+  closeModal = () => {
     this.setState({
       showModal: false,
       details: ''
     })
+  }
+}
+
+// Component for gallery image
+class GalleryImage extends Component {
+  render() {
+    return(
+      <img className={this.props.className} src={this.props.src} alt={this.props.alt} />
+    )
+  }
+}
+
+// Component for gallery modal
+class GalleryModal extends Component {
+  render() {
+    if (this.props.isopen === false) {
+      return null;
+    }
+    const {movieId, fullSizeImageUrl, movieName, languageCode, imageType} = this.props.details;
+
+    return(
+      <div className='modal-overlay' onClick={this.props.onClick} name={this.props.name}>
+        <div className='modal-body'>
+          <a className='modal-close' href='#' onClick={this.props.onClick}><span className='fa fa-times'></span></a>
+          <img src={fullSizeImageUrl} />
+          <span className='tags'> {movieName} - {languageCode} - {imageType} - {movieId}</span>
+        </div>
+      </div>
+    )
   }
 }

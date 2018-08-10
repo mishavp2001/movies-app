@@ -15,6 +15,9 @@ const socket = {
 export const io = {
  connect() {
   return socket;
+},
+ on() {
+  return socket.on;
  }
 };
 // Additional helpers, not included in the real socket.io-client,just for out test.

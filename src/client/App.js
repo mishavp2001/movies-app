@@ -36,8 +36,10 @@ export default class App extends Component {
   }
 
   sortBy = (sort, e) => {
+    //Call back to set state to sorted movies by sort parameter
     e.preventDefault();
     e.stopPropagation();
+    if(!sort){return false};
     const moviesSorted = this.state.movies.sort((a, b) => (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0))
     this.setState(
       {movies: moviesSorted, sortedBy: sort}
