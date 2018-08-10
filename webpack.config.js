@@ -15,11 +15,13 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        use: {
+          loader: "babel-loader"
+        }
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        use: ["style-loader", "css-loader"]
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
