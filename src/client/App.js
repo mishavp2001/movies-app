@@ -49,7 +49,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="gallery-container">
-        <h1>Welcome to our movies gallery!</h1>
+        <h1>Welcome to our gallery!</h1>
         {this.state.movies ? (
           <Gallery moviesResp={this.state.movies} sortedBy={this.state.sortedBy} sortBy={this.sortBy}/>
         ) : (
