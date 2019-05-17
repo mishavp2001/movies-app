@@ -1,0 +1,11 @@
+[{"insuranceId":1,
+  "name":"Aethna",
+  "deductable": 6000,
+  "doctor_visit": 30,
+  "premium": 300},
+  {"insuranceId":2,
+    "name":"Aethna Silver",
+    "deductable": 1000,
+    "doctor_visit": 60,
+    "premium": 400}
+]

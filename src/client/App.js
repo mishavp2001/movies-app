@@ -1,36 +1,36 @@
 import React, { Component } from "react";
-import Gallery from "./components/Gallery";
+import Insurance from "./components/Insurance";
 import ReactImage from "./react.png";
 import socketIOClient from "socket.io-client";
 import "./css/app.css";
 
-const DEFAULT_SORT = "movieId";
+const DEFAULT_SORT = "insuranceId";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { movies: null, sortedBy: DEFAULT_SORT };
+    this.state = { insurances: null, sortedBy: DEFAULT_SORT };
   }
 
   componentDidMount() {
     //API call
-    this.getMovies();
+    this.getInsurance();
   }
 
-  getMovies() {
+  getInsurance() {
     const socket = socketIOClient('http://localhost:8080/');
     socket.on('connect', () => {
       //console.log("Socket Connected");
-      socket.emit('movies', "Load");
-      socket.on("movies", movies => {
+      socket.emit('insurance', "Load");
+      socket.on("insurance", insurance => {
         //Time out to show asynchronious behavier
-        setTimeout(() => { this.setState({ movies: movies })}, 4000);
+        setTimeout(() => { this.setState({ insurances: insurance })}, 40);
         //this.setState({ movies: movies });
       });
     });
     socket.on('disconnect', () => {
-      socket.off("movies")
-      socket.removeAllListeners("movies");
+      socket.off("insurance")
+      socket.removeAllListeners("insurance");
       //console.log("Socket Disconnected");
     });
   }
@@ -40,18 +40,18 @@ export default class App extends Component {
     e.preventDefault();
     e.stopPropagation();
     if(!sort){return false};
-    const moviesSorted = this.state.movies.sort((a, b) => (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0))
+    const insuranceSorted = this.state.insurances.sort((a, b) => (a[sort] > b[sort]) ? 1 : ((b[sort] > a[sort]) ? -1 : 0))
     this.setState(
-      {movies: moviesSorted, sortedBy: sort}
+      {insurances: insuranceSorted, sortedBy: sort}
     )
   }
 
   render() {
     return (
       <div className="gallery-container">
-        <h1>Welcome to our gallery!</h1>
-        {this.state.movies ? (
-          <Gallery moviesResp={this.state.movies} sortedBy={this.state.sortedBy} sortBy={this.sortBy}/>
+        <h1>Health Insurance Cost Estimator</h1>
+        {this.state.insurances ? (
+          <Insurance insurancesResp={this.state.insurances} sortedBy={this.state.sortedBy} sortBy={this.sortBy}/>
         ) : (
           <h1>Loading.. please wait!</h1>
         )}
